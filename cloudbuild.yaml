@@ -1,0 +1,16 @@
+steps:
+# Step 1: Install dependencies
+- name: 'python:3.7'
+  entrypoint: pip
+  args: ['install', '-r', 'requirements.txt']
+
+# Step 2: Run tests
+- name: 'python:3.7'
+  entrypoint: pytest
+  args: ['tests/']
+
+# Step 3: Deploy to Google App Engine
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['app', 'deploy']
+
