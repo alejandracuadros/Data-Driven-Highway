@@ -4,15 +4,10 @@ steps:
   entrypoint: pip
   args: ['install', '-r', 'requirements.txt']
 
-# Step 1.5: Install pytest
+# Step 2: Run tests using virtual environment
 - name: 'python:3.7'
-  entrypoint: pip
-  args: ['install', 'pytest']
-
-# Step 2: Run tests
-- name: 'python:3.7'
-  entrypoint: pytest
-  args: ['test_app.py']
+  entrypoint: '/bin/bash'
+  args: ['-c', 'python -m venv venv && . venv/bin/activate && pytest test_app.py']
 
 # Step 3: Deploy to Google App Engine
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -20,3 +15,4 @@ steps:
   args: ['app', 'deploy']
 
 logsBucket: 'gs://traffic_accidents'
+
