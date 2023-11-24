@@ -7,7 +7,7 @@ steps:
 # Step 2: Run tests
 - name: 'python:3.7'
   entrypoint: pytest
-  args: ['tests/']
+  args: ['test_app.py']
 
 # Step 3: Deploy to Google App Engine
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
