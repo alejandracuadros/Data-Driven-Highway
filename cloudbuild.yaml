@@ -4,7 +4,11 @@ steps:
   entrypoint: pip
   args: ['install', '-r', 'requirements.txt']
 
-# Step 2: Run tests using python -m to ensure pytest is recognized
+# Step 2: 
+- name: 'python:3.7'
+  entrypoint: 'pip'
+  args: ['install', 'pytest']
+
 - name: 'python:3.7'
   entrypoint: '/bin/bash'
   args: ['-c', 'python -m pytest test_app.py']
