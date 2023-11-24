@@ -1,13 +1,13 @@
 steps:
-# Step 1: Install dependencies
+# Step 1: Install dependencies including pytest
 - name: 'python:3.7'
   entrypoint: pip
   args: ['install', '-r', 'requirements.txt']
 
-# Step 2: Run tests using virtual environment
+# Step 2: Run tests using python -m to ensure pytest is recognized
 - name: 'python:3.7'
   entrypoint: '/bin/bash'
-  args: ['-c', 'python -m venv venv && . venv/bin/activate && pytest test_app.py']
+  args: ['-c', 'python -m pytest test_app.py']
 
 # Step 3: Deploy to Google App Engine
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
