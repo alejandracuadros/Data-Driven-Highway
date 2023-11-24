@@ -4,6 +4,11 @@ steps:
   entrypoint: pip
   args: ['install', '-r', 'requirements.txt']
 
+# Step 1.5: Install pytest
+- name: 'python:3.7'
+  entrypoint: pip
+  args: ['install', 'pytest']
+
 # Step 2: Run tests
 - name: 'python:3.7'
   entrypoint: pytest
