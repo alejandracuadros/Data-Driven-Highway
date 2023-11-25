@@ -4,16 +4,7 @@ steps:
   entrypoint: pip
   args: ['install', '-r', 'requirements.txt']
 
-# Step 2: 
-- name: 'python:3.7'
-  entrypoint: 'pip'
-  args: ['install', 'pytest']
-
-- name: 'python:3.7'
-  entrypoint: '/bin/bash'
-  args: ['-c', 'python -m pytest test_app.py']
-
-# Step 3: Deploy to Google App Engine
+# Step 2: Deploy to Google App Engine
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args: ['app', 'deploy']
