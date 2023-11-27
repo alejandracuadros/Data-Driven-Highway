@@ -6,3 +6,6 @@ matplotlib
 seaborn
 scikit-learn
 tensorflow
+pytest
+statsmodels
+db-dtypes
