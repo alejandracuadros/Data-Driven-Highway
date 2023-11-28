@@ -20,7 +20,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # Initialize BigQuery Client
 client = bigquery.Client()
 
-#     LIMIT 1000  -- Adjust the number to get a smaller subset (for checking the ML model)
+    # LIMIT 1000  -- Adjust the number to get a smaller subset (for checking the ML model)
 
 def load_data_from_bigquery():
     """
@@ -97,6 +97,11 @@ def train_model(X_train, y_train, preprocessor):
 
     try:
         pipeline.fit(X_train, y_train)
+    
+        # Saving the model after fitting
+        joblib.dump(pipeline, 'traffic_severity_predictor.joblib')
+        logging.info("Model saved as 'traffic_severity_predictor.joblib'")
+    
     except Exception as e:
         logging.error(f"An error occurred during the model training: {e}")
         return None

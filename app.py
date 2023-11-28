@@ -1,11 +1,20 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from google.cloud import bigquery
+import pandas as pd
+import joblib
 
 # Initialize Flask app
 app = Flask(__name__)
 
 # Initialize BigQuery client
 client = bigquery.Client()
+
+# Load the trained model
+model = joblib.load('traffic_severity_predictor.joblib')
+
+@app.route('/')
+def index():
+    return "Flask app is running!"
 
 # Route for Accident Frequency by Location
 @app.route('/api/accidents/frequency_by_location', methods=['GET'])
@@ -143,15 +152,25 @@ def get_accidents_by_day_of_week():
     SELECT FORMAT_DATE('%A', DATE(Start_Time)) as DayOfWeek, COUNT(*) as AccidentCount
     FROM `data-driven-highway.data_driven_highway_dataset.optimized_table`
     GROUP BY DayOfWeek
-    ORDER BY FIELD(DayOfWeek, 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday')
+    ORDER BY 
+        CASE DayOfWeek
+            WHEN 'Sunday' THEN 1
+            WHEN 'Monday' THEN 2
+            WHEN 'Tuesday' THEN 3
+            WHEN 'Wednesday' THEN 4
+            WHEN 'Thursday' THEN 5
+            WHEN 'Friday' THEN 6
+            WHEN 'Saturday' THEN 7
+        END
     """
     try:
         query_job = client.query(query)
-        result = query_job.result() 
+        result = query_job.result()
         accidents_by_day = [dict(row) for row in result]
         return jsonify(accidents_by_day)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
     
 
 # Route for Accidents by Time of Day
@@ -171,23 +190,7 @@ def get_accidents_by_time_of_day():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Route for Accident Frequency by Location - Accidents by Zip Code
-@app.route('/api/accidents/frequency_by_zipcode', methods=['GET'])
-def get_accidents_by_zipcode():
-    query = """
-    SELECT Zipcode, COUNT(*) as AccidentCount
-    FROM `data-driven-highway.data_driven_highway_dataset.optimized_table`
-    GROUP BY Zipcode
-    ORDER BY AccidentCount DESC
-    """
-    try:
-        query_job = client.query(query)
-        result = query_job.result() 
-        frecuency_by_zipcode = [dict(row) for row in result]
-        return jsonify(frecuency_by_zipcode)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500    
-    
+
 # Route for Accident Severity Over Time - Monthly Severity Trends
 @app.route('/api/accidents/severity_over_months', methods=['GET'])
 def get_severity_over_months():
@@ -260,6 +263,28 @@ def get_severity_by_road_condition():
     except Exception as e:
         return jsonify({"error": str(e)}), 500 
     
+# Route to integrate Machine Learning Model to Flask App
+@app.route('/predict', methods=['POST'])
+def predict():
+    if request.method == 'POST':
+        try:
+            data = request.get_json()
+            input_df = pd.DataFrame([data])
+
+            print("DataFrame shape:", input_df.shape)
+            print("DataFrame content:", input_df)
+
+            # Check if the DataFrame has the expected shape
+            if input_df.ndim != 2:
+                return jsonify({'error': f'Input data has {input_df.ndim} dimensions, expected 2 dimensions'}), 400
+
+            prediction = model.predict(input_df)
+            return jsonify({'prediction': str(prediction[0])})
+
+        except Exception as e:
+            print("Error:", e)
+            return jsonify({'error': str(e)}), 500
+
+    
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
-

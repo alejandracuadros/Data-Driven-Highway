@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 // Import all your components
 import AccidentFrequencyByLocation from './components/AccidentFrequencyByLocation';
-import AccidentFrequencyByZipCode from './components/AccidentFrequencyByZipCode';
 import AccidentsByDayOfWeek from './components/AccidentsByDayOfWeek';
 import AccidentsByPartOfDay from './components/AccidentsByPartOfDay';
 import AccidentsByTimeOfDay from './components/AccidentsByTimeOfDay';
@@ -24,7 +23,6 @@ function App() {
       </header>
       <main>
         <AccidentFrequencyByLocation />
-        <AccidentFrequencyByZipCode />
         <AccidentsByDayOfWeek />
         <AccidentsByPartOfDay />
         <AccidentsByTimeOfDay />
