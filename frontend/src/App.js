@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Accident Data Dashboard</h1>
+        <h1>Data Driven Highway</h1>
       </header>
       <main>
         <AccidentFrequencyByLocation />
@@ -43,5 +43,6 @@ function App() {
 }
 
 export default App;
+
 
 
