@@ -10,7 +10,10 @@ function SeverityOverMonths() {
         // Fetch severity over months data from the API
         axios.get('/api/accidents/severity_over_months')
             .then(response => {
-                setSeverityData(response.data);
+                setSeverityData(response.data.map(item => ({
+                    ...item,
+                    AccidentCount: Number(item.AccidentCount).toLocaleString() // Thousand Separator
+                  })));
                 setIsLoading(false);
             })
             .catch(error => {

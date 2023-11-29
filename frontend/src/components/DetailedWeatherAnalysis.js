@@ -9,13 +9,18 @@ function DetailedWeatherAnalysis() {
     useEffect(() => {
         // Fetch detailed weather analysis data from the API
         axios.get('/api/accidents/weather_detailed')
-            .then(response => {
-                setWeatherData(response.data);
-                setIsLoading(false);
-            })
+        .then(response => {
+            setWeatherData(response.data.map(item => ({
+              ...item,
+              average_visibility_mi: Number(item.average_visibility_mi).toFixed(2), // Two decimals
+              average_wind_speed_mph: Number(item.average_wind_speed_mph).toFixed(2), // Two decimals
+              accident_count: Number(item.accident_count).toLocaleString() // Thousand Separator
+            })));
+            setIsLoading(false);
+        })
             .catch(error => {
                 console.error('Error fetching data:', error);
-                setError(error);
+                setError(error.message);
                 setIsLoading(false);
             });
     }, []);
@@ -44,9 +49,9 @@ function DetailedWeatherAnalysis() {
                     {weatherData.map((weather, index) => (
                         <tr key={index}>
                             <td>{weather.Weather_Condition}</td>
-                            <td>{weather.AVG_Visibility_mi_}</td>
-                            <td>{weather.AVG_Wind_Speed_mph_}</td>
-                            <td>{weather.AccidentCount}</td>
+                            <td>{weather.average_visibility_mi}</td>
+                            <td>{weather.average_wind_speed_mph}</td>
+                            <td>{weather.accident_count}</td>
                         </tr>
                     ))}
                 </tbody>

@@ -10,12 +10,15 @@ function TimeBasedAccidentAnalysis() {
         // Fetch time-based accident analysis data from the API
         axios.get('/api/accidents/time_based_analysis')
             .then(response => {
-                setTimeBasedData(response.data);
+                setTimeBasedData(response.data.map(item => ({
+                    ...item,
+                    Accident_Count: Number(item.Accident_Count).toLocaleString() // Thousand Separator
+                  })));
                 setIsLoading(false);
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
-                setError(error);
+                setError(error.message);
                 setIsLoading(false);
             });
     }, []);
@@ -25,7 +28,7 @@ function TimeBasedAccidentAnalysis() {
     }
 
     if (error) {
-        return <div>Error: {error.message}</div>;
+        return <div>Error: {error}</div>;
     }
 
     return (
@@ -42,7 +45,7 @@ function TimeBasedAccidentAnalysis() {
                     {timeBasedData.map((item, index) => (
                         <tr key={index}>
                             <td>{item.Hour}</td>
-                            <td>{item.AccidentCount}</td>
+                            <td>{item.Accident_Count}</td>
                         </tr>
                     ))}
                 </tbody>

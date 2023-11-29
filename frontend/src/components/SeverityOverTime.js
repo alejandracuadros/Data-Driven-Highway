@@ -10,7 +10,10 @@ function SeverityOverTime() {
         // Fetch severity over time data from the API
         axios.get('/api/accidents/severity_over_time')
             .then(response => {
-                setSeverityOverTimeData(response.data);
+                setSeverityOverTimeData(response.data.map(item => ({
+                    ...item,
+                    Accident_Count: Number(item.Accident_Count).toLocaleString() // Thousand Separator
+                  })));
                 setIsLoading(false);
             })
             .catch(error => {
@@ -44,7 +47,7 @@ function SeverityOverTime() {
                         <tr key={index}>
                             <td>{item.Year}</td>
                             <td>{item.Severity}</td>
-                            <td>{item.AccidentCount}</td>
+                            <td>{item.Accident_Count}</td>
                         </tr>
                     ))}
                 </tbody>

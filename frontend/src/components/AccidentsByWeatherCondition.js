@@ -10,7 +10,10 @@ function AccidentsByWeatherCondition() {
         // Fetch accidents by weather condition from the API
         axios.get('/api/accidents/count_by_weather')
             .then(response => {
-                setAccidentData(response.data);
+                setAccidentData(response.data.map(item => ({
+                    ...item,
+                    AccidentCount: Number(item.AccidentCount).toLocaleString() // Thousand Separator
+                  })));
                 setIsLoading(false);
             })
             .catch(error => {

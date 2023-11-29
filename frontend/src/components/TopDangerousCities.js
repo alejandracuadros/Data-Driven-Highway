@@ -10,7 +10,10 @@ function TopDangerousCities() {
         // Fetch top dangerous cities data from the API
         axios.get('/api/accidents/top_dangerous_cities')
             .then(response => {
-                setTopCitiesData(response.data);
+                setTopCitiesData(response.data.map(item => ({
+                    ...item,
+                    AccidentCount: Number(item.AccidentCount).toLocaleString() // Thousand Separator
+                  })));
                 setIsLoading(false);
             })
             .catch(error => {

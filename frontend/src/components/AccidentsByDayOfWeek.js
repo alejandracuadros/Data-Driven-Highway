@@ -10,7 +10,10 @@ function AccidentsByDayOfWeek() {
         // Fetch accidents by day of week from the API
         axios.get('/api/accidents/by_day_of_week')
             .then(response => {
-                setAccidentData(response.data);
+                setAccidentData(response.data.map(item => ({
+                    ...item,
+                    AccidentCount: Number(item.AccidentCount).toLocaleString() // Thousand Separator
+                  })));
                 setIsLoading(false);
             })
             .catch(error => {

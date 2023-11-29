@@ -5,12 +5,12 @@ url = 'http://127.0.0.1:5000/predict'
 # Example values
 
 data = {
-    'Start_Lat': 34.0,  
-    'Start_Lng': -118.0,
-    'Temperature_F_': 65.0,
-    'Visibility_mi_': 10.0,
-    'DayOfWeek': 3,
-    'HourOfDay': 14,
+    'Start_Lat': 55.0,  
+    'Start_Lng': 18.0,
+    'Temperature_F_': 70.0,
+    'Visibility_mi_': 100.0,
+    'DayOfWeek': 7,
+    'HourOfDay': 10,
     'Weather_Condition': 'Clear'
 }
 

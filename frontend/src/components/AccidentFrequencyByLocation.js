@@ -10,7 +10,10 @@ function AccidentFrequencyByLocation() {
         // Fetch accident frequency data from the API
         axios.get('/api/accidents/frequency_by_location')
             .then(response => {
-                setAccidentData(response.data);
+                setAccidentData(response.data.map(item => ({
+                    ...item,
+                    Accident_Count: Number(item.Accident_Count).toLocaleString() // Thousand Separator
+                  })));
                 setIsLoading(false);
             })
             .catch(error => {

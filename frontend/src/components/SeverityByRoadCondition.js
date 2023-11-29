@@ -10,7 +10,10 @@ function SeverityByRoadCondition() {
         // Fetch severity by road condition data from the API
         axios.get('/api/accidents/severity_by_road_condition')
             .then(response => {
-                setRoadConditionData(response.data);
+                setRoadConditionData(response.data.map(item => ({
+                    ...item,
+                    AccidentCount: Number(item.AccidentCount).toLocaleString() // Thousand Separator
+                  })));
                 setIsLoading(false);
             })
             .catch(error => {

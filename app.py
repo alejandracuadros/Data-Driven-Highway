@@ -10,6 +10,7 @@ app = Flask(__name__)
 client = bigquery.Client()
 
 # Load the trained model
+model_columns = ['Start_Lat', 'Start_Lng', 'Temperature_F_', 'Visibility_mi_', 'DayOfWeek', 'HourOfDay', 'Weather_Condition']
 model = joblib.load('traffic_severity_predictor.joblib')
 
 @app.route('/')
@@ -212,10 +213,14 @@ def get_severity_over_months():
 @app.route('/api/accidents/weather_detailed', methods=['GET'])
 def get_weather_detailed():
     query = """
-    SELECT Weather_Condition, AVG(Visibility_mi_), AVG(Wind_Speed_mph_), COUNT(*) as AccidentCount
+    SELECT 
+        Weather_Condition, 
+        AVG(Visibility_mi_) as average_visibility_mi, 
+        AVG(Wind_Speed_mph_) as average_wind_speed_mph, 
+        COUNT(*) as accident_count
     FROM `data-driven-highway.data_driven_highway_dataset.optimized_table`
     GROUP BY Weather_Condition
-    ORDER BY AccidentCount DESC
+    ORDER BY accident_count DESC
     """
     try:
         query_job = client.query(query)
@@ -223,7 +228,8 @@ def get_weather_detailed():
         weather_detailed = [dict(row) for row in result]
         return jsonify(weather_detailed)
     except Exception as e:
-        return jsonify({"error": str(e)}), 500 
+        return jsonify({"error": str(e)}), 500
+
     
 # Route for Time-Based Accident Analysis - Accidents by Part of Day
 @app.route('/api/accidents/time_of_day', methods=['GET'])
@@ -268,23 +274,22 @@ def get_severity_by_road_condition():
 def predict():
     if request.method == 'POST':
         try:
-            data = request.get_json()
-            input_df = pd.DataFrame([data])
+            json_input = request.get_json()
+            input_data = pd.DataFrame([json_input], columns=model_columns)
 
-            print("DataFrame shape:", input_df.shape)
-            print("DataFrame content:", input_df)
+            print("DataFrame shape:", input_data.shape)
+            print("DataFrame content:", input_data)
 
             # Check if the DataFrame has the expected shape
-            if input_df.ndim != 2:
-                return jsonify({'error': f'Input data has {input_df.ndim} dimensions, expected 2 dimensions'}), 400
+            if input_data.ndim != 2:
+                return jsonify({'error': f'Input data has {input_data.ndim} dimensions, expected 2 dimensions'}), 400
 
-            prediction = model.predict(input_df)
+            prediction = model.predict(input_data)
             return jsonify({'prediction': str(prediction[0])})
-
+        except KeyError as e:
+            return jsonify({'error': f'Missing key in input data: {str(e)}'}), 400
         except Exception as e:
-            print("Error:", e)
             return jsonify({'error': str(e)}), 500
-
     
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

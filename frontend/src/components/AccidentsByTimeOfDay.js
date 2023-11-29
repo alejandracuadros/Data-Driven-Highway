@@ -10,7 +10,10 @@ function AccidentsByTimeOfDay() {
         // Fetch accidents by time of day from the API
         axios.get('/api/accidents/by_time_of_day')
             .then(response => {
-                setAccidentData(response.data);
+                setAccidentData(response.data.map(item => ({
+                    ...item,
+                    AccidentCount: Number(item.AccidentCount).toLocaleString() // Thousand Separator
+                  })));
                 setIsLoading(false);
             })
             .catch(error => {

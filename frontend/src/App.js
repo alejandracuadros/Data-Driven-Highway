@@ -14,6 +14,7 @@ import SeverityOverTime from './components/SeverityOverTime';
 import TimeBasedAccidentAnalysis from './components/TimeBasedAccidentAnalysis';
 import TopDangerousCities from './components/TopDangerousCities';
 import WeatherImpactOnAccidents from './components/WeatherImpactOnAccidents';
+import MLModelPrediction from './components/MLModelPrediction'
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <TimeBasedAccidentAnalysis />
         <TopDangerousCities />
         <WeatherImpactOnAccidents />
+        <MLModelPrediction />
       </main>
     </div>
   );

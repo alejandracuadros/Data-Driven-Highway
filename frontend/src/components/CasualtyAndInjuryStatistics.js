@@ -10,7 +10,10 @@ function CasualtyAndInjuryStatistics() {
         // Fetch casualty and injury statistics from the API
         axios.get('/api/accidents/severity_distribution')
             .then(response => {
-                setInjuryData(response.data);
+                setInjuryData(response.data.map(item => ({
+                    ...item,
+                    Accident_Count: Number(item.Accident_Count).toLocaleString() // Thousand Separator
+                  })));
                 setIsLoading(false);
             })
             .catch(error => {

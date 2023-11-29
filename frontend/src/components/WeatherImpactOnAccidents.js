@@ -10,7 +10,11 @@ function WeatherImpactOnAccidents() {
         // Fetch weather impact on accidents data from the API
         axios.get('/api/accidents/weather_impact')
             .then(response => {
-                setWeatherImpactData(response.data);
+                setWeatherImpactData(response.data.map(item => ({
+                    ...item,
+                    Accident_Count: Number(item.Accident_Count).toLocaleString() // Thousand Separator
+                  })));
+
                 setIsLoading(false);
             })
             .catch(error => {
