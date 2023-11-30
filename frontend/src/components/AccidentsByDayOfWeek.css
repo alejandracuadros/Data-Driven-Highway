@@ -1,0 +1,22 @@
+.AccidentsByDayOfWeek-container {
+  font-size: 10px;
+  padding: 0px;
+  margin: 0px;
+  box-shadow: none;
+  text-align: center;
+}
+
+.AccidentsByDayOfWeek-container h2{
+  font-size: 18px;
+
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  font-size: 20px;
+  color: #555;
+}
+

@@ -1,0 +1,33 @@
+.severity-chart-container {
+    font-family: 'Arial', sans-serif;
+    margin: 10px;
+    padding: 0px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: none;
+  }
+  
+  .severity-chart-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  
+  .severity-chart-container {
+    font-family: 'Arial', sans-serif;
+    margin: 10px; 
+    padding: 0px;
+    text-align: center; 
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: none;
+  }
+  
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    font-size: 20px;
+  }
+  

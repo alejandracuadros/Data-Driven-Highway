@@ -1,0 +1,38 @@
+.AccidentsByTimeOfDay-container {
+    font-family: 'Arial', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    background-color: #ffffff;
+    border-radius: 0px;
+    box-shadow: none;
+    border:none;
+
+  }
+  
+  .AccidentsByTimeOfDay-container h2 {
+    text-align: center;
+    margin-bottom: 0px;
+    font-size: 18px;
+    
+  }
+  
+  .loading {
+    display: flex;      
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    font-size: 20px;
+  }
+  
+  .custom-tooltip {
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    
+}
+
+.custom-tooltip .label {
+    font-size: 10px;
+    margin: 0;
+}

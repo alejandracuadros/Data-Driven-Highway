@@ -1,0 +1,36 @@
+.WeatherCondition-container {
+    font-family: 'Arial', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: none;
+    font-size: 18px;
+    }
+  
+  .WeatherCondition-container h2 {
+    text-align: center;
+    margin-bottom: -10px;
+    font-size: 18px;
+  }
+  
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* Height matches the ResponsiveContainer */
+    font-size: 20px;
+  }
+  
+  .custom-tooltip {
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+  }
+  
+  .custom-tooltip .label {
+    font-size: 14px;
+    margin: 0;
+  }
+  

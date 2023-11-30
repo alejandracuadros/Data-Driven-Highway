@@ -1,0 +1,59 @@
+.dashboard-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, minmax(80px, auto));
+  gap: 0.5rem;
+  padding: 0.5rem;
+  grid-template-columns: 0.75fr 0.65fr 0.75fr;
+  grid-template-rows: 0.75fr 0.75fr 0.75fr;
+}
+
+.dashboard-item {
+  background-color: #ffffff;
+  border: 1px solid #d4d4d4;
+  border-radius: 4px;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Adjust the size and placement by changing the grid-row and grid-column */
+.dashboard-item.frequency { grid-area: frequency; }
+.dashboard-item.dayofweek { grid-area: dayofweek; }
+.dashboard-item.partofday { grid-area: partofday; }
+.dashboard-item.timeofday { grid-area: timeofday; }
+.dashboard-item.weather { grid-area: weather; }
+.dashboard-item.casualty { grid-area: casualty; }
+.dashboard-item.severity { grid-area: severity; }
+.dashboard-item.cities { grid-area: cities; }
+.dashboard-item.prediction { grid-area: prediction; /* spans full width */ }
+
+/* Define the grid-template-areas */
+.dashboard-container {
+  grid-template-areas:
+    "frequency severity casualty "
+    "timeofday partofday dayofweek"
+    " weather cities prediction";
+}
+
+/* Responsive design adjustments */
+@media screen and (max-width: 300px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "frequency"
+      "dayofweek"
+      "partofday"
+      "timeofday"
+      "weather"
+      "casualty"
+      "severity"
+      "cities"
+      "prediction";
+  }
+
+  .dashboard-item.prediction { grid-area: prediction; }
+}

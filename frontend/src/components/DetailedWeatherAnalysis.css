@@ -1,0 +1,44 @@
+.weather-chart-container {
+    font-family: 'Arial', sans-serif;
+    margin: 40px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .weather-chart-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px; /* Match the height of the ResponsiveContainer */
+    font-size: 16px;
+  }
+  
+  .custom-tooltip {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .custom-tooltip .label {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+  
+  .custom-tooltip .desc {
+    font-size: 12px;
+  }
+  
+  .weather-chart-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  

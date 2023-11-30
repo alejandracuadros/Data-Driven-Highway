@@ -1,0 +1,24 @@
+.severity-over-time-chart-container {
+    font-family: 'Arial', sans-serif;
+    margin:5px;
+    padding: 0px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: none;
+  }
+  
+  .severity-over-time-chart-container h2 {
+    font-size: 18px; /* Or any other size you prefer */
+    margin-bottom: 20px;
+
+  }
+  
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* Match the height of the ResponsiveContainer */
+    font-size: 20px;
+  }
+  

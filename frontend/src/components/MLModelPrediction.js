@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './MLModelPrediction.css';
 
 function MLModelPrediction() {
     const [inputData, setInputData] = useState({
@@ -19,6 +20,20 @@ function MLModelPrediction() {
         setInputData({ ...inputData, [e.target.name]: value });
     };
 
+    const handleRestart = () => {
+        setInputData({
+            Start_Lat: '', 
+            Start_Lng: '', 
+            Temperature_F_: '', 
+            Visibility_mi_: '',
+            DayOfWeek: '', 
+            HourOfDay: '', 
+            Weather_Condition: ''
+        });
+        setPrediction('');
+        setError('');
+    };
+  
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
@@ -44,15 +59,16 @@ function MLModelPrediction() {
     };
 
     return (
-        <div>
-            <h2>Severity of the Accident Prediction</h2>
-            <form onSubmit={handleSubmit}>
+        <div className="ml-model-prediction">
+            <h2 className="title">Forecasting Traffic Accident Severity</h2>
+            <form onSubmit={handleSubmit} className="form">
                 <input 
                     type="number" 
                     name="Start_Lat" 
                     value={inputData.Start_Lat} 
                     onChange={handleChange} 
                     placeholder="Insert Latitude" 
+                    className="input-half"
                     step="0.0001"
                     min="-90"
                     max="90"
@@ -63,6 +79,7 @@ function MLModelPrediction() {
                     value={inputData.Start_Lng}
                     onChange={handleChange}
                     placeholder="Insert Longitude"
+                    className="input-half"
                     step="0.0001"
                     min="-180"
                     max="180"
@@ -72,6 +89,7 @@ function MLModelPrediction() {
                     value={inputData.Temperature_F_} 
                     onChange={handleChange} 
                     placeholder="Insert Temperature (°F)"
+                    className="input-quarter"
                     step="0.01"
                     min="-459.67"
                     max="100" 
@@ -81,6 +99,7 @@ function MLModelPrediction() {
                     value={inputData.Visibility_mi_} 
                     onChange={handleChange} 
                     placeholder="Insert Visibility (mi)"
+                    className="input-quarter"
                     step="0.1"
                     min="0"
                     max="140" 
@@ -90,6 +109,7 @@ function MLModelPrediction() {
                     value={inputData.DayOfWeek}
                     onChange={handleChange}
                     placeholder="Select Day of the Week"
+                    className="input-full"
                 >
                     <option value="">Select Day of the Week</option>
                     <option value="1">Sunday</option>
@@ -106,6 +126,7 @@ function MLModelPrediction() {
                     value={inputData.HourOfDay}
                     onChange={handleChange}
                     placeholder="Select Hour of Day(0-24)"
+                    className="input-full"
                 >
                     <option value="">Select Hour</option>
                     {Array.from({ length: 24 }, (_, hour) => (
@@ -119,7 +140,9 @@ function MLModelPrediction() {
                     value={inputData.Weather_Condition}
                     onChange={handleChange}
                     placeholder="Choose Weather Condition"
+                    className="input-full"
                 >
+                    <option value="">Choose Weather Condition</option>
                     <option value="Blowing Dust">Blowing Dust</option>
                     <option value="Blowing Dust / Windy">Blowing Dust / Windy</option>
                     <option value="Blowing Sand">Blowing Sand</option>
@@ -266,10 +289,13 @@ function MLModelPrediction() {
                     <option value="Wintry Mix / Windy">Wintry Mix / Windy</option>
   
                 </select>
-                <button type="submit">Predict</button>
+                <div className="button-container">
+                    <button type="submit" className="submit-button">Predict</button>
+                    <button type="button" className="restart-button" onClick={handleRestart}>Restart</button>
+                </div>
             </form>
-            {prediction && <p>Prediction: {prediction}</p>}
-            {error && <p>Error: {error}</p>}
+            {prediction && <div className="prediction-result">Prediction: {prediction}</div>}
+            {error && <div className="error-message">Error: {error}</div>}
         </div>
     );
 }

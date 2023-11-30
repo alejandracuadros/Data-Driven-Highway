@@ -1,0 +1,51 @@
+.AccidentsByPartOfDay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px;
+    padding: 0px;
+    background-color: #ffffff;
+    box-shadow: none;
+    border-radius: 0px;
+    font-size: 12px;
+}
+
+.AccidentsByPartOfDay h2{
+
+    font-size: 18px;
+}
+
+.loading, .error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    font-size: 20px;
+    color: #555;
+}
+
+/* Tooltip */
+.recharts-tooltip-wrapper {
+    font-size: 12px;
+    background-color: #ffffff6e;
+    border: 1px solid #cccccc69;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.custom-tooltip {
+    background-color: #f5f0f0;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+.custom-tooltip .label {
+    font-size: 12px;
+    margin: 0;
+}
+
+.custom-tooltip .intro {
+    font-size: 12px;
+    margin-top: 5px;
+}

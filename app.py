@@ -137,6 +137,7 @@ def get_count_by_weather():
     GROUP BY Weather_Condition
     HAVING AccidentCount > 1000  -- Only include significant weather conditions
     ORDER BY AccidentCount DESC
+    LIMIT 10 --Limit to top 10 results
     """
     try:
         query_job = client.query(query)
