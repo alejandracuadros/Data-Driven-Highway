@@ -59,7 +59,6 @@ const idToStatePostalCode = {
   "56": "WY", // Wyoming
 };
 
-
 const statePostalToFullName = {
   "AL": "Alabama",
   "AK": "Alaska",

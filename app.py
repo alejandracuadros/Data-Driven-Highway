@@ -1,10 +1,12 @@
 from flask import Flask, jsonify, request
+#from flask_cors import CORS
 from google.cloud import bigquery
 import pandas as pd
 import joblib
 
 # Initialize Flask app
 app = Flask(__name__)
+#CORS(app)
 
 # Initialize BigQuery client
 client = bigquery.Client()

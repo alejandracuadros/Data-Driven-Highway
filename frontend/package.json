@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@react-google-maps/api": "^2.19.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -23,11 +22,15 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "start-backend": "gunicorn -b :5000 app:app",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "nodemon index.js --ignore client",
+    "start-dev": "concurrently \"npm run start-backend\" \"npm run start\""
   },
+  
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -46,5 +49,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }

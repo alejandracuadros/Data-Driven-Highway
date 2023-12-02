@@ -10,6 +10,10 @@ pytest
 statsmodels
 db-dtypes
 joblib
-React
-Axios
+gunicorn
+imbalanced-learn
+flask-cors
+flask_cors
+
+
 
